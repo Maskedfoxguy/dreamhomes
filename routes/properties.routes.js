@@ -5,28 +5,49 @@ const Property = require("../models/Property.model");
 const fileUploader = require('../config/cloudinary.config');
  
 // GET route to display the form to create a new movie
-router.get('/property/create', (req, res) => res.render('property-views/property-create'));
+router.get('/create', (req, res) => {
  
+  res.render('property/property-create');
+}) 
+ 
+// POST that creates a property:
+router.post('/create', fileUploader.single('property-cover-image'), (req, res) => {
+  const { title, description } = req.body;
+  console.log('req.file', req.file)
+ 
+  Property.create({ title, description, imageUrl: req.file.path })
+    .then(newlyCreatedPropertyFromDB => {
+      console.log(newlyCreatedPropertyFromDB);
+      res.redirect('/properties')
+
+      // .then(propertyPost => {
+      //   return Property.findByIdAndUpdate(author, { $push: { posts: propertyPost._id }})
+      // })
+    });
+
+    router.get('/property', (req, res)=>{
+      Property.find()
+          .then( allProperties  => {
+            res.redirect('properties', {posts: allProperties})
+          })
+    })
+   
+    .catch(error => console.log(`Error while creating a new property: ${error}`));
+});
+
+
+
 router.get('/property', (req, res) => {
+  console.log("testing property get route")
     Property.find()
       .then(propertyFromDB => {
         // console.log(FromDB);
-        res.render('property-views/property-list.hbs', { property: propertiesFromDB });
+        res.render('property/property-list.hbs', { property: propertyFromDB });
       })
       .catch(err => console.log(`Error while getting the propreties from the DB: ${err}`));
   });
 
-  router.post('/property/create', fileUploader.single('property-cover-image'), (req, res) => {
-    const { title, description } = req.body;
-    console.log('req.file', req.file)
-   
-    Property.create({ title, description, imageUrl: req.file.path })
-      .then(newlyCreatedPropertyFromDB => {
-        console.log(newlyCreatedPropertyFromDB);
-        res.redirect('/properties')
-      })
-      .catch(error => console.log(`Error while creating a new property: ${error}`));
-  });
+  
 
   router.get('/property/:id/edit', (req, res) => {
     const { id } = req.params;
@@ -36,7 +57,7 @@ router.get('/property', (req, res) => {
       .catch(error => console.log(`Error while getting a single property for edit: ${error}`));
   });
 
-  // POST route to save changes after updates in a specific 
+  // POST route to save changes after updates in a specific property
 router.post('/property/:id/edit', fileUploader.single('property-cover-image'), (req, res) => {
   const { id } = req.params;
   const { title, description, existingImage } = req.body;
@@ -52,4 +73,8 @@ router.post('/property/:id/edit', fileUploader.single('property-cover-image'), (
     .then(() => res.redirect(`/properties`))
     .catch(error => console.log(`Error while updating a single property: ${error}`));
 });
+
+
+// Post route that deletes the property.
+
 module.exports = router;

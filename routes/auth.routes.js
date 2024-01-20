@@ -12,16 +12,18 @@ const User = require("../models/User.model");
 const isLoggedOut = require('../middleware/isLoggedOut');
 const isLoggedIn = require('../middleware/isLoggedIn');
 
+
 // GET /auth/signup
 
-router.get("/signup", isLoggedOut, (req, res) => {
+router.get("/signup", (req, res) => {
 
   res.render("auth/signup");
 });
 
 // POST /auth/signup
-router.post("/signup", isLoggedOut, (req, res) => {
+router.post("/signup", (req, res) => {
   const { username, email, password } = req.body;
+  console.log(username, email, password)
 
   // Check that username, email, and password are provided
   if (username === "" || email === "" || password === "") {
@@ -61,6 +63,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
       return User.create({ username, email, password: hashedPassword });
     })
     .then((user) => {
+      console.log(user);
       res.redirect("/auth/login");
     })
     .catch((error) => {
@@ -75,6 +78,13 @@ router.post("/signup", isLoggedOut, (req, res) => {
         next(error);
       }
     });
+});
+
+router.get("/profile", (req, res) => {
+  req.session.currentUser
+  const currentUser = req.session.currentUser;
+  
+  res.render("auth/profile", { user: currentUser });
 });
 
 // GET /auth/login
@@ -107,6 +117,7 @@ router.post("/login", (req, res, next) => {
   // Search the database for a user with the email submitted in the form
   User.findOne({ email })
     .then((user) => {
+      console.log(user)
       // If the user isn't found, send an error message that user provided wrong credentials
       if (!user) {
         res
@@ -131,7 +142,7 @@ router.post("/login", (req, res, next) => {
           // Remove the password field
           delete req.session.currentUser.password;
 
-          res.redirect("/");
+          res.redirect("/auth/profile");
         })
         .catch((err) => next(err)); // In this case, we send error handling to the error handling middleware.
     })
@@ -149,6 +160,10 @@ router.get("/logout", (req, res) => {
     res.redirect("/");
   });
 });
+
+router.get("/profile", (req, res) => [
+  res.render ("auth/profile")
+])
 
 module.exports = router;
 
