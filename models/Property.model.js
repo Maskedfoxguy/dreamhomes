@@ -9,8 +9,7 @@ const fileUploader = require('../config/cloudinary.config');
 // TODO: Please make sure you edit the User model to whatever makes sense in this case
 const propertySchema = new Schema(
   {
-    _id: ObjectId(""),
-    User_id: ObjectId(),
+   
     title: {
       type: String,
       required: true,
@@ -28,16 +27,15 @@ const propertySchema = new Schema(
       postalCode: Number,
     },
 
-    available: true,
+    available: {
+      type: Boolean,
+      default: true
+    },
 
     picture: [{}],
 
-    likes: [
-      {
-        User_id: ObjectId(""),
-        ref: User,
-      },
-    ],
+    owner: { type: Schema.Types.ObjectId, ref: "User" },
+    
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`

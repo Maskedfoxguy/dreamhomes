@@ -9,6 +9,17 @@ const logger = require("morgan");
 // https://www.npmjs.com/package/cookie-parser
 const cookieParser = require("cookie-parser");
 
+// ℹ️ Session middleware for authentication
+// https://www.npmjs.com/package/express-session
+const session = require("express-session");// ℹ️ Session middleware for authentication
+
+// https://www.npmjs.com/package/connect-mongo
+const MongoStore = require("connect-mongo");
+
+// Connects the mongo uri to maintain the same naming structure
+const MONGO_URI =
+  process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/dreamhomes";
+
 // ℹ️ Serves a custom favicon on each request
 // https://www.npmjs.com/package/serve-favicon
 const favicon = require("serve-favicon");
@@ -36,4 +47,19 @@ module.exports = (app) => {
 
   // Handles access to the favicon
   app.use(favicon(path.join(__dirname, "..", "public", "images", "favicon.ico")));
+
+ // ℹ️ Middleware that adds a "req.session" information and later to check that you are who you say you are 😅
+ app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "super hyper secret key",
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: MONGO_URI,
+    }),
+  })
+);
+
 };
+
+
