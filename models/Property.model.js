@@ -1,5 +1,11 @@
 const { Schema, model } = require("mongoose");
 
+// const Property = require('../models/property.model');
+ 
+// ********* require fileUploader in order to use it *********
+const fileUploader = require('../config/cloudinary.config');
+ 
+
 // TODO: Please make sure you edit the User model to whatever makes sense in this case
 const propertySchema = new Schema(
   {
