@@ -13,7 +13,7 @@ const isLoggedOut = require('../middleware/isLoggedOut');
 const isLoggedIn = require('../middleware/isLoggedIn');
 
 // GET /auth/signup
-router.get("/signup", isLoggedOut, (req, res) => {
+router.get("/signup", (req, res) => {
   res.render("auth/signup");
 });
 
@@ -85,12 +85,10 @@ router.post("/login", (req, res, next) => {
   const { username, email, password } = req.body;
 
   // Check that username, email, and password are provided
-  if (username === "" || email === "" || password === "") {
-    res.status(400).render("auth/login", {
-      errorMessage:
-        "All fields are mandatory. Please provide username, email and password.",
+  if (email === '' || password === '') {
+    res.render('auth/login', {
+      errorMessage: 'Please enter both, email and password to login.'
     });
-
     return;
   }
 
@@ -123,7 +121,10 @@ router.post("/login", (req, res, next) => {
               .render("auth/login", { errorMessage: "Wrong credentials." });
             return;
           }
-
+          else if (bcrypt.compare(password, user.password)) {
+            req.session.currentUser = user;
+            res.render('auth/profile', user);
+          }  
           // Add the user object to the session object
           req.session.currentUser = user.toObject();
           // Remove the password field
