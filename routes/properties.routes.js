@@ -23,18 +23,19 @@ router.post('/create', fileUploader.single('property-cover-image'), (req, res) =
       // .then(propertyPost => {
       //   return Property.findByIdAndUpdate(author, { $push: { posts: propertyPost._id }})
       // })
-    });
-
-    router.get('/property', (req, res)=>{
-      Property.find()
-          .then( allProperties  => {
-            res.redirect('properties', {posts: allProperties})
-          })
     })
+
+    
    
-    .catch(error => console.log(`Error while creating a new property: ${error}`));
+    .catch((error) => console.log(`Error while creating a new property: ${error}`));
 });
 
+router.get('/property', (req, res)=>{
+  Property.find()
+      .then( allProperties  => {
+        res.render('properties', {posts: allProperties})
+      })
+});
 
 
 router.get('/property', (req, res) => {
@@ -47,7 +48,6 @@ router.get('/property', (req, res) => {
       .catch(err => console.log(`Error while getting the propreties from the DB: ${err}`));
   });
 
-  
 
   router.get('/property/:id/edit', (req, res) => {
     const { id } = req.params;
