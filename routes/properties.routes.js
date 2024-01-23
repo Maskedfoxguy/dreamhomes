@@ -6,7 +6,7 @@ const fileUploader = require('../config/cloudinary.config');
  
 // GET route to display the form to create a new movie
 router.get('/create', (req, res) => {
- 
+  console.log(req.session.currentUser)
   res.render('property/property-create');
 }) 
  
@@ -14,28 +14,24 @@ router.get('/create', (req, res) => {
 router.post('/create', fileUploader.single('property-cover-image'), (req, res) => {
   const { title, description } = req.body;
   console.log('req.file', req.file)
- 
-  Property.create({ title, description, imageUrl: req.file.path })
+  
+  Property.create({ title, description, imageUrl: req.file.path , owner: req.session.currentUser._id })
     .then(newlyCreatedPropertyFromDB => {
       console.log(newlyCreatedPropertyFromDB);
-      res.redirect('/properties')
+      res.redirect('/property/property')
 
-      // .then(propertyPost => {
-      //   return Property.findByIdAndUpdate(author, { $push: { posts: propertyPost._id }})
-      // })
     })
 
     
-   
     .catch((error) => console.log(`Error while creating a new property: ${error}`));
 });
 
-router.get('/property', (req, res)=>{
-  Property.find()
-      .then( allProperties  => {
-        res.render('properties', {posts: allProperties})
-      })
-});
+// router.get('/property', (req, res)=>{
+//   Property.find()
+//       .then( allProperties  => {
+//         res.render('properties', {posts: allProperties})
+//       })
+// });
 
 
 router.get('/property', (req, res) => {
@@ -47,18 +43,27 @@ router.get('/property', (req, res) => {
       })
       .catch(err => console.log(`Error while getting the propreties from the DB: ${err}`));
   });
+router.get('/details/:id' , (req, res) => {
+ 
+ const { id } = req.params;
+ Property.findById(id)
+  .then(propertyFound => res.render('property/property-details' , propertyFound ))
+  .catch(error => console.log(error))
+})
 
 
-  router.get('/property/:id/edit', (req, res) => {
+
+
+  router.get('/details/:id/edit', (req, res) => {
     const { id } = req.params;
    
     Property.findById(id)
-      .then(propertyToEdit => res.render('property-views/property-edit', propertyToEdit))
+      .then(propertyToEdit => res.render('property/property-edit', propertyToEdit))
       .catch(error => console.log(`Error while getting a single property for edit: ${error}`));
   });
 
   // POST route to save changes after updates in a specific property
-router.post('/property/:id/edit', fileUploader.single('property-cover-image'), (req, res) => {
+router.post('/details/:id/edit', fileUploader.single('property-cover-image'), (req, res) => {
   const { id } = req.params;
   const { title, description, existingImage } = req.body;
  
