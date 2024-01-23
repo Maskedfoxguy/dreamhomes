@@ -32,7 +32,9 @@ const propertySchema = new Schema(
       default: true
     },
 
-    picture: [{}],
+    imageUrl: {
+      type: String
+    },
 
     owner: { type: Schema.Types.ObjectId, ref: "User" },
     
