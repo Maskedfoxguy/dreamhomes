@@ -17,14 +17,16 @@
         </div>
 
         <div>
-            <a href="/">Home</a>
+            
              {{#if userInSession}}
-            <a href="/property/list">My properties</a>
+            <a href="/">Home</a>
+            {{!-- <a href="/property/list">My properties</a> --}}
             <a href="/property/create">Add property</a>
             <a href="/property/property">Properties</a>
             <a href="/auth/logout">Logout</a>
             {{else}}
-             <a href="/auth/login">Log in</a>
+            <a href="/">Home</a>
+            <a href="/auth/login">Log in</a>
             <a href="/auth/signup">Create an accout</a>
             {{/if}}
         </div>

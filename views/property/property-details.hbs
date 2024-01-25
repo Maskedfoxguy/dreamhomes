@@ -10,19 +10,25 @@
         <div class="card-body">
           <h5 class="card-title">{{title}}</h5>
           <p class="card-text">{{description}}</p>
-          {{!-- <a href="/property/details/{{id}}/edit" class="btn btn-primary">Edit</a> --}}
+          <a href="/property/details/{{id}}edit" class="btn btn-primary">Edit</a>
           <a href="property/details/:id">Details here</a>
+          <!--<a href="/property/details/edit/{{_id}}">EDIT</a>-->
         </div>
       </div>
     </div>
+     
+
   {{/each}} 
 </div>
-{{else}}
-    <p>There are no properties yet!</p>
-  <hr />
-{{/if}}
+
 
 
 <h1>{{title}}</h1>
 
- <a href="/property/details/{{id}}">EDIT here</a>
+<a href="/property/details/{{id}}edit" class="btn btn-primary">Edit</a>
+ {{!-- <a href="/property/details/edit/{{_id}}">EDIT</a> --}}
+
+ {{else}}
+    <p>There are no properties yet!</p>
+  <hr />
+{{/if}}

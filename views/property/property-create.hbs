@@ -1,4 +1,4 @@
-
+{{#if userInSession}}
 
 <h2>Create a property</h2>
 <div class="row">
@@ -26,3 +26,7 @@
     </form>
   </div>
 </div>
+{{else}}
+    <p>You need to login</p>
+  <hr />
+{{/if}}
