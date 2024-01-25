@@ -7,14 +7,14 @@ const fileUploader = require('../config/cloudinary.config');
 // GET route to display the form to create a new property
 router.get('/create', (req, res) => {
   console.log(req.session.currentUser)
-  res.render('property/property-create');
+  res.render('property/property-create' , { userInSession: req.session.currentUser });
 });
 router.get('/property', (req, res) => {
   console.log("testing property get route")
     Property.find()
       .then(propertyFromDB => {
         // console.log(FromDB);
-        res.render('property/property-list.hbs', { property: propertyFromDB });
+        res.render('property/property-list.hbs', { property: propertyFromDB, userInSession: req.session.currentUser });
       })
       .catch(err => console.log(`Error while getting the propreties from the DB: ${err}`));
   });
