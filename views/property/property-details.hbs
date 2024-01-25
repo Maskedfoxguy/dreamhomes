@@ -1,3 +1,4 @@
+{{#if userInSession}}
 
 <h1>My Properties</h1>
 <hr>
@@ -14,40 +15,12 @@
         </div>
       </div>
     </div>
-  {{else}}
-    <p>There are no properties yet!</p>
-  {{/each}}
-  <hr />
+  {{/each}} 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+{{else}}
+    <p>There are no properties yet!</p>
+  <hr />
+{{/if}}
 
 
 <h1>{{title}}</h1>
