@@ -12,19 +12,24 @@
   <body>
     <header>
       <nav class="navbar bg-body-tertiary">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="/">
-            <img src="images/admamu-logo.png" alt="Logo" height="150px" class="d-inline-block align-text-top">
-          </a>
-          {{#if userInSession}}
-           <a class="navbar-brand"  href="/property/create">Add property</a>
-           <a class="navbar-brand"  href="/property/property">Properties</a>
-           <a class="navbar-brand"  href="/auth/logout">Logout</a>
-           {{else}}
-           <a class="navbar-brand" href="/auth/login">Log in</a>
-           <a class="navbar-brand"  href="/auth/signup">Create an account</a>
-          {{/if}}
+     
+
+        <div>
+            
+             {{#if userInSession}}
+            <a href="/">Home</a>
+            {{!-- <a href="/property/list">My properties</a> --}}
+            <a href="/property/create">Add property</a>
+            <a href="/property/property">Properties</a>
+            <a href="/auth/logout">Logout</a>
+            {{else}}
+            <a href="/">Home</a>
+            <a href="/auth/login">Log in</a>
+            <a href="/auth/signup">Create an accout</a>
+            {{/if}}
         </div>
+    </nav>
+
       </nav>
     </header>
     

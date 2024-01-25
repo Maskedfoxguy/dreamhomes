@@ -3,7 +3,7 @@
 <h2>Property Update</h2>
 <div class="row">
   <div class="col-md-6">
-    <form action="/details/{{_id}}/edit" method="post" enctype="multipart/form-data">
+    <form action="property/details/{{id}}/edit" method="post" enctype="multipart/form-data">
       <div class="form-group">
         <label>Title:
           <input type="text" name="title" class="form-control" value="{{title}}" />
@@ -29,3 +29,7 @@
     </form>
   </div>
 </div>
+{{else}}
+    <p>You need to login</p>
+  <hr />
+{{/if}}
