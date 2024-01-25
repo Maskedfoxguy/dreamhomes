@@ -1,3 +1,28 @@
+{{#if userInSession}}
+
+<h1>My Properties</h1>
+<hr>
+<div class="row">
+  {{#each property}}
+    <div class="col-md-4 mb-5">
+      <div class="card" style="width: 18rem;">
+        <img src="{{imageUrl}}" class="card-img-top" alt="{{title}}">
+        <div class="card-body">
+          <h5 class="card-title">{{title}}</h5>
+          <p class="card-text">{{description}}</p>
+          {{!-- <a href="/property/details/{{id}}/edit" class="btn btn-primary">Edit</a> --}}
+          <a href="property/details/:id">Details here</a>
+        </div>
+      </div>
+    </div>
+  {{/each}} 
+</div>
+{{else}}
+    <p>There are no properties yet!</p>
+  <hr />
+{{/if}}
+
+
 <h1>{{title}}</h1>
 
  <a href="/property/details/{{id}}">EDIT here</a>

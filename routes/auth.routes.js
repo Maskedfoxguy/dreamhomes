@@ -18,7 +18,6 @@ const isLoggedIn = require('../middleware/isLoggedIn');
 // GET /auth/signup
 
 router.get("/signup",  (req, res) => {
-
   res.render("auth/signup");
 });
 
@@ -85,12 +84,12 @@ router.post("/signup",  (req, res) => {
 
 
 // GET /auth/login
-router.get("/login", (req, res) => {
+router.get("/login",  (req, res) => {
   res.render("auth/login");
 });
 
 // POST /auth/login
-router.post("/login", (req, res, next) => {
+router.post("/login",  (req, res, next) => {
   const { username, email, password } = req.body;
 
   // Check that username, email, and password are provided
@@ -147,26 +146,25 @@ router.post("/login", (req, res, next) => {
     
     });
 
-    router.get('/profile', (req, res) => {
+    router.get('/profile',  (req, res) => {
       res.render('auth/profile', { userInSession: req.session.currentUser });
     });
 
     
 // GET /auth/logout
-router.get("/logout", (req, res) => {
+router.get("/logout" , (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       res.status(500).render("auth/logout", { errorMessage: err.message });
       return;
     }
-    
+
     res.redirect("/");
   });
 });
 
 
 module.exports = router;
-
 
 
 

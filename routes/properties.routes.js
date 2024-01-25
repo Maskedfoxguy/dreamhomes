@@ -4,11 +4,29 @@ const router = express.Router();
 const Property = require("../models/Property.model");
 const fileUploader = require('../config/cloudinary.config');
  
-// GET route to display the form to create a new movie
+// GET route to display the form to create a new property
 router.get('/create', (req, res) => {
   console.log(req.session.currentUser)
-  res.render('property/property-create');
-}) 
+  res.render('property/property-create' , { userInSession: req.session.currentUser });
+});
+router.get('/property', (req, res) => {
+  console.log("testing property get route")
+    Property.find()
+      .then(propertyFromDB => {
+        // console.log(FromDB);
+        res.render('property/property-list.hbs', { property: propertyFromDB, userInSession: req.session.currentUser });
+      })
+      .catch(err => console.log(`Error while getting the propreties from the DB: ${err}`));
+  });
+
+router.get('/details/:id' , (req, res) => {
+ 
+ const { id } = req.params;
+ Property.findById(id)
+  .then(propertyFound => res.render('property/property-details' , propertyFound ))
+  .catch(error => console.log(error))
+});
+
  
 // POST that creates a property:
 router.post('/create', fileUploader.single('property-cover-image'), (req, res) => {
@@ -22,36 +40,8 @@ router.post('/create', fileUploader.single('property-cover-image'), (req, res) =
 
     })
 
-    
     .catch((error) => console.log(`Error while creating a new property: ${error}`));
 });
-
-// router.get('/property', (req, res)=>{
-//   Property.find()
-//       .then( allProperties  => {
-//         res.render('properties', {posts: allProperties})
-//       })
-// });
-
-
-router.get('/property', (req, res) => {
-  console.log("testing property get route")
-    Property.find()
-      .then(propertyFromDB => {
-        // console.log(FromDB);
-        res.render('property/property-list.hbs', { property: propertyFromDB });
-      })
-      .catch(err => console.log(`Error while getting the propreties from the DB: ${err}`));
-  });
-router.get('/details/:id' , (req, res) => {
- 
- const { id } = req.params;
- Property.findById(id)
-  .then(propertyFound => res.render('property/property-details' , propertyFound ))
-  .catch(error => console.log(error))
-})
-
-
 
 
   router.get('/details/:id/edit', (req, res) => {
@@ -75,7 +65,7 @@ router.post('/details/:id/edit', fileUploader.single('property-cover-image'), (r
   }
  
   Property.findByIdAndUpdate(id, { title, description, imageUrl }, { new: true })
-    .then(() => res.redirect(`/properties`))
+    .then(() => res.redirect('/properties'))
     .catch(error => console.log(`Error while updating a single property: ${error}`));
 });
 
