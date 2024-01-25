@@ -11,20 +11,35 @@
 
   <body>
     <header>
-    <nav>
+    {{!-- <nav class="navbar bg-primary" data-bs-theme="dark">
         <div>
-            {{!-- <img src="admamu-logo.png" alt="admamu-logo"> --}}
+            <img src="images/admamu-logo.png" alt="admamu-logo">
         </div>
 
         <div>
-            <a href="/">Home</a>
-            <a href="/auth/login">Log in</a>
-            <a href="/auth/signup">Create an accout</a>
-            <a href="/property/create">Add property</a>
-            <a href="/property/property">Properties</a>
-            <a href="/auth/logout">Logout</a>
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+            <a class="nav-link active" aria-current="page" href="/auth/login">Log in</a>
+            <a class="nav-link active" aria-current="page" href="/auth/signup">Create an account</a>
+            <a class="nav-link active" aria-current="page" href="/property/create">Add property</a>
+            <a class="nav-link active" aria-current="page" href="/property/property">Properties</a>
+            <a class="nav-link active" aria-current="page" href="/auth/logout">Logout</a>
         </div>
-    </nav>
+    </nav> --}}
+
+      <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">
+            <img src="images/admamu-logo.png" alt="Logo" height="150px" class="d-inline-block align-text-top">
+          </a>
+
+           <a class="navbar-brand" href="/auth/login">Log in</a>
+           <a class="navbar-brand"  href="/auth/signup">Create an account</a>
+           <a class="navbar-brand"  href="/property/create">Add property</a>
+           <a class="navbar-brand"  href="/property/property">Properties</a>
+           <a class="navbar-brand"  href="/auth/logout">Logout</a>
+
+        </div>
+      </nav>
     </header>
     
 
