@@ -14,16 +14,16 @@ router.get('/property', (req, res) => {
     Property.find()
       .then(propertyFromDB => {
         // console.log(FromDB);
-        res.render('property/property-list.hbs', { property: propertyFromDB, userInSession: req.session.currentUser });
+        res.render('property/property-list', { property: propertyFromDB, userInSession: req.session.currentUser });
       })
       .catch(err => console.log(`Error while getting the propreties from the DB: ${err}`));
   });
 
-router.get('/details/:id' , (req, res) => {
- 
- const { id } = req.params.id;
+router.get('/details/:id/edit' , (req, res) => {
+ const id = req.params.id;
+ console.log('lobo estas?')
  Property.findById(id)
- .then(propertyToEdit => res.render('property/property-edit', propertyToEdit))
+ .then(propertyToEdit => res.render('property/property-edit',{ propertyToEdit, userInSession: req.session.currentUser}))
  .catch(error => console.log(`Error while getting a single property for edit: ${error}`));
 });
 
@@ -39,17 +39,72 @@ router.post('/details/:id/edit', fileUploader.single('property-cover-image'), (r
     imageUrl = existingImage;
   }
   Property.findByIdAndUpdate(id, { title, description, imageUrl }, { new: true })
-    .then(() => res.redirect('/properties'))
+    .then(() => res.redirect('/property/property'))
     .catch(error => console.log(`Error while updating a single property: ${error}`));
 });
 
+  // Post route to delete a specific property
 
- router.get('/details/:id/edit', (req, res) => {
-   const id = req.params._id;
-   Property.findById(id)
-     .then(propertyToEdit => res.render('property/property-edit', propertyToEdit))
-     .catch(error => console.log(`Error while getting a single property for edit: ${error}`));
- });
+router.post('/details/:id/delete', (req, res) => {
+  Property.findByIdAndDelete(req.params.id)
+      .then(() => res.redirect('/property/property'))
+      .catch(err => console.log(err))
+});
+
+// router.get('/details/:id/delete', (req, res,) => {
+//  const id = req.params.id;
+//  Property.findByIdAndDelete(id)
+//       .then(propertyToDelete => res.render('property/property-delete',{ propertyToDelete, userInSession: req.session.currentUser}))
+//       .catch(error => console.log(`Error while getting a single property for edit: ${error}`));
+//       // .then(() => res.redirect('property/property'))
+//       // .catch(err => console.log(err))
+// });
+
+module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//  router.get('/details/:id/edit', (req, res) => {
+//    const id = req.params.id;
+//    Property.findById(id)
+//      .then(propertyToEdit => res.render('property/property-edit', {propertyToEdit, userInSession: req.session.currentUser}))
+//      .catch(error => console.log(`Error while getting a single property for edit: ${error}`));
+//  });
 
   
 
@@ -66,11 +121,9 @@ router.post('/details/:id/edit', fileUploader.single('property-cover-image'), (r
 //   }
  
 //   Property.findByIdAndUpdate(id, { title, description, imageUrl }, { new: true })
-//     .then(() => res.redirect('/properties'))
+//     .then(() => res.redirect('/property-list'))
 //     .catch(error => console.log(`Error while updating a single property: ${error}`));
 // });
 
 
 // Post route that deletes the property.
-
-module.exports = router;
