@@ -1,6 +1,7 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color:aqua;
 }
 
 a {
@@ -10,3 +11,13 @@ a {
 h1 {
   color: 15px;
 }
+
+#home-test {
+  color: red;
+}
+
+#logo {
+  width: 50px;
+}
+
+

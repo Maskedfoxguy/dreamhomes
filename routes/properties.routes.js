@@ -43,6 +43,7 @@ router.get('/property', (req, res) => {
       })
       .catch(err => console.log(`Error while getting the propreties from the DB: ${err}`));
   });
+
 router.get('/details/:id' , (req, res) => {
  
  const { id } = req.params;
@@ -54,13 +55,13 @@ router.get('/details/:id' , (req, res) => {
 
 
 
-  router.get('/details/:id/edit', (req, res) => {
-    const { id } = req.params;
+router.get('/details/:id/edit', (req, res) => {
+  const { id } = req.params;
    
-    Property.findById(id)
-      .then(propertyToEdit => res.render('property/property-edit', propertyToEdit))
-      .catch(error => console.log(`Error while getting a single property for edit: ${error}`));
-  });
+  Property.findById(id)
+    .then(propertyToEdit => res.render('property/property-edit', propertyToEdit))
+    .catch(error => console.log(`Error while getting a single property for edit: ${error}`));
+});
 
   // POST route to save changes after updates in a specific property
 router.post('/details/:id/edit', fileUploader.single('property-cover-image'), (req, res) => {
