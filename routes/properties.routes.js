@@ -14,7 +14,7 @@ router.get('/property', (req, res) => {
     Property.find()
       .then(propertyFromDB => {
         // console.log(FromDB);
-        res.render('property/property-list.hbs', { property: propertyFromDB, userInSession: req.session.currentUser });
+        res.render('property/property-list', { property: propertyFromDB, userInSession: req.session.currentUser });
       })
       .catch(err => console.log(`Error while getting the propreties from the DB: ${err}`));
   });
@@ -33,7 +33,7 @@ router.post('/create', fileUploader.single('property-cover-image'), (req, res) =
   const { title, description } = req.body;
   console.log('req.file', req.file)
   
-  Property.create({ title, description, imageUrl: req.file.path , owner: req.session.currentUser })
+  Property.create({ title, description, imageUrl: req.file.path , owner: req.session.currentUser._id })
     .then(newlyCreatedPropertyFromDB => {
       console.log(newlyCreatedPropertyFromDB);
       res.redirect('/property/property')
@@ -45,7 +45,7 @@ router.post('/create', fileUploader.single('property-cover-image'), (req, res) =
 
  // Get the property edit page
   router.get('/details/:id/edit', (req, res) => {
-    const { id } = req.params.id;
+    const id = req.params.id;
    
     Property.findById(id)
       .then(propertyToEdit => res.render('property/property-edit', propertyToEdit))
@@ -55,7 +55,7 @@ router.post('/create', fileUploader.single('property-cover-image'), (req, res) =
 
   // POST route to save changes after updates in a specific property
 router.post('/details/:id/edit', fileUploader.single('property-cover-image'), (req, res) => {
-  const { id } = req.params.id;
+  const id = req.params.id;
   const { title, description, existingImage } = req.body;
  
   let imageUrl;
@@ -69,6 +69,15 @@ router.post('/details/:id/edit', fileUploader.single('property-cover-image'), (r
     .then(() => res.redirect('/properties'))
     .catch(error => console.log(`Error while updating a single property: ${error}`));
 });
+
+router.post('/property/:id/delete', (req, res, next) => {
+  const id = req.params.id;
+
+  Property.findByIdAndDelete(property_id)
+      .then(() => res.redirect('property/property-list'))
+      .catch(err => console.log(err))
+})
+
 
 
 // Post route that deletes the property.
