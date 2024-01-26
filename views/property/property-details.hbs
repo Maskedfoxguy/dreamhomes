@@ -1,19 +1,34 @@
+{{#if userInSession}}
+
+<h1>My Properties</h1>
+<hr>
+<div class="row">
+  {{#each property}}
+    <div class="col-md-4 mb-5">
+      <div class="card" style="width: 18rem;">
+        <img src="{{imageUrl}}" class="card-img-top" alt="{{title}}">
+        <div class="card-body">
+          <h5 class="card-title">{{title}}</h5>
+          <p class="card-text">{{description}}</p>
+          <a href="/property/details/{{id}}edit" class="btn btn-primary">Edit</a>
+          <a href="property/details/:id">Details here</a>
+          <!--<a href="/property/details/edit/{{_id}}">EDIT</a>-->
+        </div>
+      </div>
+    </div>
+     
+
+  {{/each}} 
+</div>
+
+
+
 <h1>{{title}}</h1>
 
-{{!-- {{#each comments}}
-  <p><b>{{this.owner.username}}:</b> {{this.k}}</p>
-{{/each}} --}}
-{{!-- 
-<h3>Add comment</h3>
- 
- <form action="/property/details/{{_id}}" method="post">
-  <label> Your username:
-    <input type="text" name="author" />
-  </label>
- 
-  <input type="text" name="postAuthor" value="{{author.username}}" hidden />
-  <textarea name="content" cols="30" rows="2"></textarea>
- 
-  <button type="submit">Comment</button>
-</form>
-<a href="/property/details/{{id}}">EDIT here</a> --}}
+<a href="/property/details/{{id}}edit" class="btn btn-primary">Edit</a>
+ {{!-- <a href="/property/details/edit/{{_id}}">EDIT</a> --}}
+
+ {{else}}
+    <p>There are no properties yet!</p>
+  <hr />
+{{/if}}

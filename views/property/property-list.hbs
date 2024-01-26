@@ -1,4 +1,5 @@
-<h1>Properties</h1>
+  {{#if userInSession}}
+<h1>My Properties</h1>
 <hr>
 <div class="row">
   {{#each property}}
@@ -13,8 +14,9 @@
         </div>
       </div>
     </div>
+  {{/each}}
+</div>
   {{else}}
     <p>There are no properties yet!</p>
-  {{/each}}
   <hr />
-</div>
+{{/if}}
