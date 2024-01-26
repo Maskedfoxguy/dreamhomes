@@ -9,15 +9,32 @@ a {
 }
 
 h1 {
-  color: 15px;
+  color: white;
 }
 
-#home-test {
-  color: red;
+body {
+  background-image: url('backround-home.png'); /* Replace 'your-background-image.jpg' with your actual image URL */
+  background-size: cover;
+  background-position: center;
+  color: #fff; /* Set text color to white for better visibility on the background image */
 }
 
-#logo {
-  width: 50px;
+.welcome-text {
+  background-color: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background for better readability */
+  padding: 20px;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
+/* Additional Custom Styles (Optional) */
+.card {
+  max-width: 600px;
+  margin: 20px auto;
+}
 
+header {
+  background-color: white !important;
+}
