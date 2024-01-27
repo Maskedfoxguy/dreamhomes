@@ -19,6 +19,9 @@ router.get('/property', (req, res) => {
       .catch(err => console.log(`Error while getting the propreties from the DB: ${err}`));
   });
 
+
+//Route to edit the property
+
   router.get('/details/:id/edit' , (req, res) => {
     const id = req.params.id;
     console.log('lobo estas?')
@@ -26,7 +29,6 @@ router.get('/property', (req, res) => {
     .then(propertyToEdit => res.render('property/property-edit',{ propertyToEdit, userInSession: req.session.currentUser}))
     .catch(error => console.log(`Error while getting a single property for edit: ${error}`));
    });
-
 
  
 // POST that creates a property:
