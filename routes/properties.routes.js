@@ -14,7 +14,7 @@ router.get('/property', (req, res) => {
     Property.find()
       .then(propertyFromDB => {
         // console.log(FromDB);
-        res.render('property/property-list.hbs', { property: propertyFromDB, userInSession: req.session.currentUser });
+        res.render('property/property-list', { property: propertyFromDB, userInSession: req.session.currentUser });
       })
       .catch(err => console.log(`Error while getting the propreties from the DB: ${err}`));
   });
@@ -27,13 +27,14 @@ router.get('/property', (req, res) => {
     .catch(error => console.log(`Error while getting a single property for edit: ${error}`));
    });
 
+
  
 // POST that creates a property:
 router.post('/create', fileUploader.single('property-cover-image'), (req, res) => {
   const { title, description } = req.body;
   console.log('req.file', req.file)
   
-  Property.create({ title, description, imageUrl: req.file.path , owner: req.session.currentUser })
+  Property.create({ title, description, imageUrl: req.file.path , owner: req.session.currentUser._id })
     .then(newlyCreatedPropertyFromDB => {
       console.log(newlyCreatedPropertyFromDB);
       res.redirect('/property/property')
@@ -44,6 +45,7 @@ router.post('/create', fileUploader.single('property-cover-image'), (req, res) =
 });
 
  // Get the property edit page
+
 //  /Route to edit the property
 
  router.get('/details/:id/edit' , (req, res) => {
@@ -71,6 +73,14 @@ router.post('/create', fileUploader.single('property-cover-image'), (req, res) =
   });
 
 
-// Post route that deletes the property.
+router.post('/property/delete/:id', (req, res, next) => {
+  const id = req.params.id;
 
-module.exports = router;
+  Property.findByIdAndDelete(id)
+      .then(() => res.redirect('property/property-list'))
+      .catch(err => console.log(err))
+})
+
+
+
+// Post route that deletes the property.

@@ -1,12 +1,48 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color:aqua;
 }
 
 a {
-  color: white;
+  color: black;
 }
 
 h1 {
-  color: 15px;
+  color: white;
+}
+
+body {
+  background-image: url('https://www.gannett-cdn.com/authoring/2019/10/19/NPBD/ghows-LK-38a67534-847c-4808-b30d-05a18158d47c-5df757b4.jpeg?crop=1182,669,x0,y42&width=2560'); /* Replace 'your-header-background-image.jpg' with your actual image URL */
+  background-size: cover;
+  background-position: center;
+  color: #fff; /* Set text color to white for better visibility on the background image */
+  padding: 20px; /* Add padding for better spacing */
+}
+
+/* body {
+  background-image: url('backround-home.png'); /* Replace 'your-background-image.jpg' with your actual image URL */
+  /* background-size: cover;
+  background-position: center;
+  color: #fff; /* Set text color to white for better visibility on the background image */
+/* }  */
+
+/* .welcome-text {
+  background-color: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background for better readability */
+  /* padding: 20px; */
+  /* text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} */ 
+
+/* Additional Custom Styles (Optional) */
+/* .card {
+  max-width: 600px;
+  margin: 20px auto;
+} */
+
+header {
+  background-color: white !important;
 }
