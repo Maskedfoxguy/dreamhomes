@@ -50,7 +50,7 @@ router.post('/create', fileUploader.single('property-cover-image'), (req, res) =
 
 //  /Route to edit the property
 
- router.get('/details/:id/edit' , (req, res) => {
+ router.get('/details/:id/edit', (req, res) => {
   const id = req.params.id;
   console.log('lobo estas?')
   Property.findById(id)
@@ -83,6 +83,6 @@ router.post('/property/delete/:id', (req, res, next) => {
       .catch(err => console.log(err))
 })
 
-
+module.exports = router;
 
 // Post route that deletes the property.
