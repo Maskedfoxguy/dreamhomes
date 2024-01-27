@@ -18,6 +18,7 @@ const isLoggedIn = require('../middleware/isLoggedIn');
 // GET /auth/signup
 
 router.get("/signup",  (req, res) => {
+  console.log('el inicio es correcto')
   res.render("auth/signup");
 });
 
