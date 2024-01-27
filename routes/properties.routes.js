@@ -19,13 +19,14 @@ router.get('/property', (req, res) => {
       .catch(err => console.log(`Error while getting the propreties from the DB: ${err}`));
   });
 
-router.get('/details/:id/edit' , (req, res) => {
- const id = req.params.id;
- console.log('lobo estas?')
- Property.findById(id)
- .then(propertyToEdit => res.render('property/property-edit',{ propertyToEdit, userInSession: req.session.currentUser}))
- .catch(error => console.log(`Error while getting a single property for edit: ${error}`));
-});
+  router.get('/details/:id/edit' , (req, res) => {
+    const id = req.params.id;
+    console.log('lobo estas?')
+    Property.findById(id)
+    .then(propertyToEdit => res.render('property/property-edit',{ propertyToEdit, userInSession: req.session.currentUser}))
+    .catch(error => console.log(`Error while getting a single property for edit: ${error}`));
+   });
+
 
  
 // POST that creates a property:
@@ -44,29 +45,33 @@ router.post('/create', fileUploader.single('property-cover-image'), (req, res) =
 });
 
  // Get the property edit page
-  router.get('/details/:id/edit', (req, res) => {
-    const id = req.params.id;
-   
-    Property.findById(id)
-      .then(propertyToEdit => res.render('property/property-edit', propertyToEdit))
-      .catch(error => console.log(`Error while getting a single property for edit: ${error}`));
-  });
+
+//  /Route to edit the property
+
+ router.get('/details/:id/edit' , (req, res) => {
+  const id = req.params.id;
+  console.log('lobo estas?')
+  Property.findById(id)
+  .then(propertyToEdit => res.render('property/property-edit',{ propertyToEdit, userInSession: req.session.currentUser}))
+  .catch(error => console.log(`Error while getting a single property for edit: ${error}`));
+ });
   
 
   // POST route to save changes after updates in a specific property
-router.post('/details/:id/edit', fileUploader.single('property-cover-image'), (req, res) => {
-  const id = req.params.id;
-  const { title, description, existingImage } = req.body;
-  let imageUrl;
-  if (req.file) {
-    imageUrl = req.file.path;
-  } else {
-    imageUrl = existingImage;
-  }
-  Property.findByIdAndUpdate(id, { title, description, imageUrl }, { new: true })
-    .then(() => res.redirect('/property/property'))
-    .catch(error => console.log(`Error while updating a single property: ${error}`));
-});
+  router.post('/details/:id/edit', fileUploader.single('property-cover-image'), (req, res) => {
+    const id = req.params.id;
+    const { title, description, existingImage } = req.body;
+    let imageUrl;
+    if (req.file) {
+      imageUrl = req.file.path;
+    } else {
+      imageUrl = existingImage;
+    }
+    Property.findByIdAndUpdate(id, { title, description, imageUrl }, { new: true })
+      .then(() => res.redirect('/property/property'))
+      .catch(error => console.log(`Error while updating a single property: ${error}`));
+  });
+
 
 router.post('/property/delete/:id', (req, res, next) => {
   const id = req.params.id;
