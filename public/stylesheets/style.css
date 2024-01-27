@@ -20,6 +20,28 @@ body {
   padding: 20px; /* Add padding for better spacing */
 }
 
+#logo {
+  height: 150px;
+}
+
+img {
+  height: 250px;
+  padding: 12px;
+  text-align: center;
+}
+
+.card {
+  display: flex;
+  flex-direction: row !important;
+  align-items: center;
+}
+
+.changedirection {
+  display: flex;
+  flex-direction: row-reverse !important;
+  align-items: center;
+}
+
 /* body {
   background-image: url('backround-home.png'); /* Replace 'your-background-image.jpg' with your actual image URL */
   /* background-size: cover;

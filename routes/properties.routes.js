@@ -19,6 +19,8 @@ router.get('/property', (req, res) => {
       .catch(err => console.log(`Error while getting the propreties from the DB: ${err}`));
   });
 
+//Route to edit the property
+
 router.get('/details/:id/edit' , (req, res) => {
  const id = req.params.id;
  console.log('lobo estas?')
