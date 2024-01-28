@@ -2,16 +2,14 @@
 
 ## [See the App!](https://dreamhomes-f23q.onrender.com/)
 
-img= "public/images/admamu-logo.png"
+[public/images/admamu-logo.png](https://github.com/Maskedfoxguy/dreamhomes/blob/main/public/images/admamu-logo.png)
 
-## Description
+## The tinder for house hunting, 
+come and get in love with your future.
 
-**NOTE -** Describe your project in one/two lines.
+real estate listing platform that allows users to browse, search, and list properties for sale or rent. Users can create accounts, save favorite listings, and contact property owners or real estate agents.
  
 ## User Stories
-
-**NOTE -**  List here all the actions a user can do in the app. Example:
-
 - **404** - As a user I want to see a nice 404 page when I go to a page that doesn’t exist so that I know it was my fault 
 - **500** - As a user I want to see a nice error page when the super team screws it up so that I know that is not my fault
 - **homepage** - As a user I want to be able to access the homepage so that I see what the app is about and login and signup
@@ -22,13 +20,22 @@ img= "public/images/admamu-logo.png"
 - **events create** - As a user I want to create an event so that I can invite others to attend
 
 ## Backlog Functionalities
-
-**NOTE -** List here all functionalities you wish to add to your proyect later.
-
+Auth: Implement user registration and authentication.
+CRUD: log in to upload properties, edit it and deleted it.
+Property Listings: Allow users to list properties with details like price, location, number of bedrooms, and more.
+Search and Filter: Provide robust search and filtering options based on various criteria (e.g., location, price range, property type).
+Save Favorites: Users can save their favorite property listings for future reference.
+likes: Define the relationship.
+Contact Property Owner/Agent: Include a messaging system for users to inquire about a property directly.
+Property-User Relationship: Establish a connection between users and their listed properties.
+Bonus: External API Integration: Integrate with external APIs to include additional information about neighborhood amenities, school ratings, or local market trends.
 ## Technologies used
 
-**NOTE -** List here all technologies used in the project like HTML, CSS, Javascript, Node, Express, Handlebars, Sessions & Cookies, etc.
-
+Frontend: HTML, CSS, JavaScript (consider using a frontend framework like React or Angular).
+Backend: Node.js with Express.
+Database: MongoDB for property data.
+Authentication: Implement user authentication using a library.
+Data Models: Define models for Users and Properties.
 
 ## (Optional) Routes
 
@@ -54,55 +61,38 @@ img= "public/images/admamu-logo.png"
     - username
     - password
 
-- GET /events
+- GET /property
   - renders the event list + the create form
-- POST /events/create 
-  - redirects to / if user is anonymous
+- POST /property/create 
   - body: 
-    - name
-    - date
-    - location
+    - title
     - description
-
+    - picture
 
 ## Models
 
-**NOTE -** List here all the models & Schemas of your Database Structure. Example: 
-
-User model
- 
-```
+## User model
 username: String
+email: String
 password: String
-```
 
-Event model
-
-```
+## Property model
 owner: ObjectId<User>
 name: String
 description: String
 date: Date
-``` 
+
+## Comment model
+body:String,
+property: { type: Schema.Types.ObjectId, ref: "Property" }
+author: { type: Schema.Types.ObjectId, ref: "User" }
 
 ## Links
 
 ## Collaborators
 
-[Developer 1 name](www.github-url.com)
+Adam https://github.com/Maskedfoxguy
 
-[Developer 2 name](www.github-url.com)
+Mayo Socas https://github.com/Mayo9704
 
-### Project
-
-[Repository Link](www.your-github-url-here.com)
-
-[Deploy Link](www.your-deploy-url-here.com)
-
-### Trello
-
-[Link to your trello board](www.your-trello-url-here.com)
-
-### Slides
-
-[Slides Link](www.your-slides-url-here.com)
+Munisa https://github.com/munisamee
