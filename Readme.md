@@ -2,7 +2,7 @@
 
 ## [See the App!](https://dreamhomes-f23q.onrender.com/)
 
-[(https://github.com/Maskedfoxguy/dreamhomes/blob/main/public/images/admamu-logo.png)]
+https://github.com/Maskedfoxguy/dreamhomes/blob/main/public/images/admamu-logo.png
 
 ## The tinder for house hunting, 
 come and get in love with your future.
