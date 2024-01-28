@@ -2,7 +2,7 @@
 
 ## [See the App!](https://dreamhomes-f23q.onrender.com/)
 
-(/images/admamu-logo.png)
+img= "public/images/admamu-logo.png"
 
 ## Description
 
